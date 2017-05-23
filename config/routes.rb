@@ -12,4 +12,5 @@ Rails.application.routes.draw do
   
   get 'topics/show', to: 'topics#show', as: 'show_path'
 
+
 end
