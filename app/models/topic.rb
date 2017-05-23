@@ -1,7 +1,8 @@
 class Topic < ApplicationRecord
 
   belongs_to :user
-
+  has_many :comments, dependent: :destroy
+  has_many :topic_tags, dependent: :destroy
 
    validates :title, :body, :user_id, :status, :votes, presence: true 
 
@@ -11,7 +12,7 @@ class Topic < ApplicationRecord
         "Abandoned":    3,
     }
 
-  attr_accessor :tagstring
+  #attr_accessor :tagstring
 
   def set_tag_id(tagstring)
     tagstring.downcase!
@@ -23,7 +24,9 @@ class Topic < ApplicationRecord
       else
         cur_tag = Tag.find_by(:name => tag)
       end
-      TopicTag.create(:topic_id => self.id, :tag_id => cur_tag.id)
+      if !TopicTag.exists?(:topic_id => self.id, :tag_id => cur_tag.id)
+        TopicTag.create(:topic_id => self.id, :tag_id => cur_tag.id)
+      end
     end
   end
 

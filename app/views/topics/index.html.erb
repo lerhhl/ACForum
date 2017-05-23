@@ -9,7 +9,7 @@
 <% @topics.each do |topic| %>
 <br><%= topic.id %>. <%= topic.title %>
 <%= link_to "Edit", topics_path + "/" + topic.id.to_s + "/edit" %>
-<%= link_to "Destroy", topics_path(topic.id) %>
+<%= link_to "Destroy", topic, method: :delete, data: { confirm: "Are you sure?" } %>
 <% end %>
 
 <%= link_to "Login", new_user_session_path %>
