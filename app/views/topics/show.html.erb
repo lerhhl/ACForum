@@ -1,0 +1,13 @@
+<h1>Title: <%= @topic.title %></h1>
+
+<h2>Topic Description</h2>
+<p><%= @topic.body %></p>
+<hr>
+<% comment_arr = @topic.comments %>
+<h2>Comments(<%= comment_arr.count %>)</h2>
+<% comment_arr.each do |c|%>
+    <p><%= c.body %><p>
+<% end %>
+
+<br>
+<%= link_to "Back", topics_path %>
