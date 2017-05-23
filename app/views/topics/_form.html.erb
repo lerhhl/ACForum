@@ -18,10 +18,11 @@
     <div>
       <tr>
         <td><%= f.label :body%></td>
-        <td><%= f.text_area :body, size: "60 x 12"%></td>
+        <td> <%= f.cktext_area :body %> 
+        
       </tr>
     </div>
-
+   
     <div>
       <tr>
         <td><%= f.label :tagstring %> <br>Insert Tags seperated by<br># (eg.cats#food#toys)</td>
