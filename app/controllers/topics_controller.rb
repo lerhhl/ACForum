@@ -1,10 +1,13 @@
 class TopicsController < ApplicationController
   
+  # Find params before the following actions
+  before_action :set_topic, only: [:show, :edit, :update, :destroy]
+
   def index
+    @topics = Topic.all
   end
 
   def show
-      @topic = set_topic
   #default = display recent topic/comments
   #display search result
   end
@@ -14,7 +17,6 @@ class TopicsController < ApplicationController
   end
 
   def create
-    #user_id = current_user.id
     @topic = Topic.new(topic_params)
 
     if @topic.save
@@ -26,6 +28,22 @@ class TopicsController < ApplicationController
     end
   
   end
+
+  def edit
+  end
+
+  def update
+    @topic.update(topic_params)
+
+  end
+  
+
+  def destroy
+    @topic.destroy
+    redirect_to topics_url
+  end
+  
+  
 
 private
 

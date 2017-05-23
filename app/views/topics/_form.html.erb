@@ -1,0 +1,49 @@
+<% if @topic.errors.present?%>
+  <ul>
+    <% @topic.errors.each do |error, message|%>
+      <li> <%= "#{error.capitalize}  #{message}" %></li>
+    <% end %>
+  </ul>
+<% end%>
+<div class="form container">
+  <%= form_for @topic do |f| %>
+    <table>
+      <div>
+        <tr>
+          <td><%= f.label :title%></td>
+          <td><%= f.text_field :title%></td>
+        </tr>
+      </div>
+
+    <div>
+      <tr>
+        <td><%= f.label :body%></td>
+        <td><%= f.text_area :body, size: "60 x 12"%></td>
+      </tr>
+    </div>
+
+    <div>
+      <tr>
+        <td><%= f.label :tagstring %> <br>Insert Tags seperated by<br># (eg.cats#food#toys)</td>
+        <td><%= f.text_field :tagstring %></td>
+      </tr>
+    </div>
+    
+    <div>
+      <tr>
+        <td>
+        <td>
+      </tr>
+    </div>
+
+
+    Posting as <%= current_user.firstname %>
+    <%=  f.hidden_field :user_id, :value => current_user.id %>
+    <tr> 
+      <td><%= f.submit %></td>
+    </tr>
+    </table>
+    <%= link_to 'Back to index', topics_path %>
+
+  <% end %>
+</div>

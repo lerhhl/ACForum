@@ -6,4 +6,14 @@
 
 <h3> Search result next page</h3>
 
+<% @topics.each do |topic| %>
+<br><%= topic.id %>. <%= topic.title %>
+<%= link_to "Edit", topics_path + "/" + topic.id.to_s + "/edit" %>
+<%= link_to "Destroy", topics_path(topic.id) %>
+<% end %>
+
+<%= link_to "Login", new_user_session_path %>
+<%= link_to "Logout", destroy_user_session_path %>
+<%= link_to "New Topic", new_topic_path %>
+
 <p>Footer below</p>
