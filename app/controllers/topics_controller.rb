@@ -3,6 +3,9 @@ class TopicsController < ApplicationController
   # Find params before the following actions
   before_action :set_topic, only: [:show, :edit, :update, :destroy]
 
+  # User needs to login before doing the following actions
+  before_action :authenticate_user!, only: [:new, :create, :edit, :destroy]
+
   def index
     @topics = Topic.all
   end
@@ -18,7 +21,7 @@ class TopicsController < ApplicationController
 
   def create
     @topic = Topic.new(topic_params)
-
+    @topic.votes = 0
     if @topic.save
       tagstring = params[:topic][:tagstring]
       @topic.set_tag_id(tagstring)
@@ -26,7 +29,6 @@ class TopicsController < ApplicationController
     else
       render :new
     end
-  
   end
 
   def edit
@@ -48,7 +50,7 @@ class TopicsController < ApplicationController
 private
 
   def topic_params
-    params.require(:topic).permit(:title, :body, :user_id)
+    params.require(:topic).permit(:title, :body, :tagstring, :user_id, :status)
   end
 
   def set_comment

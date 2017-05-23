@@ -3,8 +3,9 @@ class CreateTopics < ActiveRecord::Migration[5.1]
     create_table :topics do |t|
       t.string :title
       t.text :body
-      t.integer :votes
+      t.integer :votes, default: ""
       t.integer :status
+      t.string :tagstring
       t.references :tag, foreign_key: true
       t.references :user, foreign_key: true
 

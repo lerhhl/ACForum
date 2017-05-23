@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20170523081256) do
     t.text "body"
     t.integer "votes"
     t.integer "status"
+    t.string "tagstring"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
