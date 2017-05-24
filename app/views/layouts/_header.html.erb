@@ -1,8 +1,10 @@
+<div class="container col-lg-8 col-lg-offset-2">
 <header>
-    <div>
-        <%= link_to "AC Forum", root_path, id: "logo" %>
+    <div class="">
+        
         <nav>
-            <ul>
+            <%= link_to "AC Forum", root_path, id: "logo" %>
+            <ul id='nav'>
                 <li><%= link_to "Home", root_path %></li>
                 <li><%= link_to "Log in", new_user_session_path %></li>
                 <li><%= link_to "Log out", destroy_user_session_path, :method => :delete %></li>                

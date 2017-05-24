@@ -1,26 +1,52 @@
-<h1>Topic: <%= @topic.title %></h1>
+<div class="content">
+<div class="show_topic_title">
+<h1><%= @topic.title %></h1>
+</div>
 
-<h3>Description: <%= @topic.body.html_safe %> </h3>
-
+<div class="show_topic_content">
+<%= @topic.body.html_safe %>
+</div>
 <hr>
 
 <% comments_arr = @topic.comments %>
 <% @comments = @topic.comments.page(params[:page]).per(10)%>
 <h2>Comments(<%= comments_arr.count %>)</h2>
     <% comments_arr.each do |comment|%>
-        <div>
-            <%= "#{comment.content}, by #{comment.user.firstname} #{comment.user.lastname}, updated on: #{comment.updated_at}" %>
-            <%= link_to "Edit", edit_topic_comment_path(@topic.id, comment.id) %>
-            <%= link_to "Delete", topic_comment_path(comment), method: :delete, data:{ confirm: "Are you sure?" } %>
-        </div>
+        <li class="comment_box">
+            <div class="avatar">
+            
+            </div>
+            <div class="comment_box_2">
+                <div class="comments_info">
+                    <div>
+                    <%= "#{comment.user.firstname} #{comment.user.lastname}"%>
+                    </div>
+                    <div>
+                    <%= "updated on: #{comment.updated_at}" %>
+                    </div>
+                </div>
+
+                <div class="comment_content">
+                    <%= "#{comment.content}" %>
+                    <%= link_to "Edit", edit_topic_comment_path(@topic.id, comment.id) %>
+                    <%= link_to "Delete", topic_comment_path(comment), method: :delete, data:{ confirm: "Are you sure?" } %>
+                </div>
+            </div>
+        </li>
+
     <% end %>
 <br>
+<div id="paginate">
     <%= paginate @comments %>
     <%= page_entries_info @comments %>
-<br>
-<br>
-    <div><button><%= link_to "New comment", new_topic_comment_path(@topic)%> </button></div>
+</div>
+
+    <div class="show_topic_bottom">
+    <button><%= link_to "New comment", new_topic_comment_path(@topic)%> </button>
+    <%= link_to "Back", topics_path %>
+    </div>
 <br>
 
-<%= link_to "Back", topics_path %>
+
 <hr>
+</div>

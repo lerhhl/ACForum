@@ -20,17 +20,18 @@ class TopicsController < ApplicationController
       
       @topics = Topic.where('id IN (?)', @topics_id)
       if params[:sort]
-        @topics = @topics.order(params[:sort])
+        sortstring = params[:sort] + params[:sorttype]
+        @topics = @topics.order(sortstring)
       end
       @topics = @topics.page(params[:page]).per(10)
 
     else
       # Sort Controller
       if params[:sort]
-
+        sortstring = params[:sort] + params[:sorttype]
         @topics = params[:topic_list]
 
-        @topics = @topics.order(params[:sort]).page(params[:page]).per(10)
+        @topics = @topics.order(sortstring).page(params[:page]).per(10)
       else
         @topics = Topic.all.order('created_at DESC').page(params[:page]).per(10)
       end

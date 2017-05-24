@@ -1,31 +1,37 @@
-<h1>User Profile</h1>
+<div class="content">
+  <h1>User Profile</h1>
 
-<%= link_to "Edit profile", edit_user_registration_path %>
-<h2><%= current_user.firstname %> <%= current_user.lastname%></h2>
-<br> Email: <%= current_user.email %>
+  
+  <div class="basic_info">
+    <div>
+      <h2><%= current_user.firstname %> <%= current_user.lastname%></h2>
+      <br> Email: <%= current_user.email %>
+      <br><%= link_to "Edit profile", edit_user_registration_path %>
+    </div>
+    <div>
+      <% if current_user.avatar.url.present? %>
+        <%= image_tag(current_user.avatar.url(:thumb), class: "img-thumbnail",) %>
+      <% end %>
+    </div>
+  </div>
+  <hr>
+  <br>
+  <h3>My Topics</h3>
+  <% @topics.each do |topic|%>
+      <li>
+        <%= link_to "#{topic.title.capitalize}, updated on: #{topic.updated_at}", topic_path(topic) %>
+        <%= link_to 'Edit', edit_topic_path(topic)%>
+        <%= link_to "Delete", topic_path(topic), method: :delete, data:{ confirm: "Are you sure?" }%>
+      </li>
+  <%end%>
 
-
-<% if current_user.avatar.url.present? %>
-  <%= image_tag(current_user.avatar.url(:thumb), class: "img-thumbnail",) %>
-<% end %>
-
-<hr>
-<br>
-<h3>My Topics</h3>
- <% @topics.each do |topic|%>
-    <li>
-      <%= link_to "#{topic.title.capitalize}, updated on: #{topic.updated_at}", topic_path(topic) %>
-      <%= link_to 'Edit', edit_topic_path(topic)%>
-      <%= link_to "Delete", topic_path(topic), method: :delete, data:{ confirm: "Are you sure?" }%>
-    </li>
- <%end%>
-
-<hr> 
- <h3>My Latest Comments</h3>
-  <% @comments.each do |comment|%>
-    <li>
-      <%= link_to "#{comment.content.capitalize}, updated on: #{comment.updated_at}", topic_path(comment.topic_id)  %>
-      <%= link_to 'Edit', edit_topic_comment_path(comment.topic_id, comment.id)%>
-      <%= link_to "Delete", topic_comment_path(comment.topic_id, comment.id), method: :delete, data:{ confirm: "Are you sure?" } %>
-    </li>
- <%end%>
+  <hr> 
+  <h3>My Latest Comments</h3>
+    <% @comments.each do |comment|%>
+      <li>
+        <%= link_to "#{comment.content.capitalize}, updated on: #{comment.updated_at}", topic_path(comment.topic_id)  %>
+        <%= link_to 'Edit', edit_topic_comment_path(comment.topic_id, comment.id)%>
+        <%= link_to "Delete", topic_comment_path(comment.topic_id, comment.id), method: :delete, data:{ confirm: "Are you sure?" } %>
+      </li>
+  <%end%>
+ </div>
