@@ -24,8 +24,8 @@ User.create(firstname: firstname, lastname: lastname, is_admin: false,
   firstname = Faker::Name.first_name
   lastname = Faker::Name.last_name
   email = Faker::Internet.email
-  #avatar = Faker::Avatar.image
-  avatar = ""
+  avatar = Faker::Avatar.image
+  #avatar = ""
 
   User.create(firstname: firstname, lastname: lastname, is_admin: false,
               email: email, password: 'password',
