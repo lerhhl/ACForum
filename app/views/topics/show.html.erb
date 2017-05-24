@@ -1,13 +1,21 @@
-<h1>Title: <%= @topic.title %></h1>
+<h1>Topic: <%= @topic.title %></h1>
 
-<h2>Topic Description</h2>
-<p><%= @topic.body %></p>
+<h3>Description: <%= @topic.body %> </h3>
+
 <hr>
-<% comment_arr = @topic.comments %>
-<h2>Comments(<%= comment_arr.count %>)</h2>
-<% comment_arr.each do |c|%>
-    <p><%= c.body %><p>
-<% end %>
+
+<% comments_arr = @topic.comments %>
+<h2>Comments(<%= comments_arr.count %>)</h2>
+    <% comments_arr.each do |comment|%>
+        <div>
+            <%= "#{comment.content}, by #{comment.user.firstname} #{comment.user.lastname}, updated on: #{comment.updated_at}" %>
+            <%= link_to "Delete", method: :delete, data:{ confirm: "Are you sure?" } %>
+        </div>
+    <% end %>
 
 <br>
+    <div><button><%= link_to "New comment", new_topic_comment_path(@topic)%> </button></div>
+<br>
+
 <%= link_to "Back", topics_path %>
+<hr>

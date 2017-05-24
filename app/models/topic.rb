@@ -1,15 +1,16 @@
 class Topic < ApplicationRecord
-
+  default_scope { order(updated_at: :desc)  }
   belongs_to :user
+  has_many :comments, dependent: :destroy
+  has_many :topic_tags, dependent: :destroy
 
+  validates :title, :body, :user_id, :status, presence: true 
 
-   validates :title, :body, :user_id, :status, :votes, presence: true 
-
-    enum status: {
-        "Draft":        1,
-        "Published":    2,
-        "Abandoned":    3,
-    }
+  enum status: {
+    "Draft":        1,
+    "Published":    2,
+    "Abandoned":    3,
+  }
 
   attr_accessor :tagstring
 

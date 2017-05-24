@@ -1,9 +1,18 @@
-<h1>Banner </h1>
-
-<h2> <input></input>Search</h2>
+<h2> <input></input><button>Search</button></h2>
 
 <h3> List of topics </h3>
+  <ul>
+  <% @topics.each do |topic|%>
+    <li>
+      <%= link_to "#{topic.title.capitalize}, updated on: #{topic.updated_at}", topic_path(topic) %>
+      <%= link_to "Delete", topic_path(topic), method: :delete, data:{ confirm: "Are you sure?" }%>
+    </li>
+  <%end%>
+    <br>
+    <button><%= link_to "New topic", new_topic_path%></button>
+  </ul>
 
 <h3> Search result next page</h3>
 
 <p>Footer below</p>
+

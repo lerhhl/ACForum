@@ -1,0 +1,23 @@
+<% if @comment.errors.present?%>
+  <ul>
+    <% @comment.errors.each do |error, message|%>
+      <li> <%= "#{error.capitalize}  #{message}" %></li>
+    <% end %>
+  </ul>
+<% end%>
+
+<div class="form container">
+  <%= form_for @comment do |f| %>
+    <div>
+    <%= f.label :content%>
+    <%= f.text_field :content%>
+    </div>
+
+    Posting as <%= current_user.firstname %>
+
+    <%=  f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.submit %>
+    <%= link_to 'Back to index', topic_path %>
+
+  <% end %>
+</div>
