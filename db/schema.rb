@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170523230909) do
+ActiveRecord::Schema.define(version: 20170524065845) do
 
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string "data_file_name", null: false
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 20170523230909) do
     t.string "firstname", null: false
     t.string "lastname"
     t.boolean "is_admin"
-    t.string "file_location"
+    t.string "avatar"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
