@@ -53,3 +53,24 @@ comment_21 = Comment.create(content: Faker::HarryPotter.quote, topic_id: topic_4
 #Topic.first.comments.first.update_attributes(:updated_at => 1.year.ago)
 
 #Tags
+
+# Improved Seeder File
+
+# User
+firstname = Faker::Name.first_name
+lastname = Faker::Name.last_name
+email = Faker::Internet.email
+avatar = Faker::Avatar.image
+
+User.create(firstname: firstname, lastname: lastname, is_admin: false, email: email, password: 'password', password_confirmation: 'password', avatar: avatar)
+
+# Topic
+title = Faker::HarryPotter.quote
+body = Faker::HarryPotter.quote + Faker::HarryPotter.quote + Faker::HarryPotter.quote
+votes = Faker::Number.between(0, 999)
+status = Faker::Number.between(1, 3)
+user_id = User.order('RANDOM()').first.id
+Topic.create(title: title, body: body, user_id: user_1.id, votes: votes, status: status  )
+
+
+
