@@ -45,7 +45,8 @@ class CommentsController < ApplicationController
   end
 
   def set_comment
-    @comment = Comment.find(params[:id])
+    @topic = Topic.find(params[:topic_id])
+    @comment = @topic.comments.find(params[:id])
   end
 
 end
