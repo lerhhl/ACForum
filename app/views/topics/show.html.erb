@@ -14,7 +14,9 @@
     <% comments_arr.each do |comment|%>
         <li class="comment_box">
             <div class="avatar">
-            
+                <% if comment.user.avatar.url.present? %>
+                    <%= image_tag(current_user.avatar.url(:thumb), class: "img-thumbnail",) %>
+                <% end %>
             </div>
             <div class="comment_box_2">
                 <div class="comments_info">
