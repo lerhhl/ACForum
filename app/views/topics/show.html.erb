@@ -29,12 +29,16 @@
                 </div>
 
                 <div class="comment_content">
-                    <%= "#{comment.content}" %>
+                    <div><%= "#{comment.content}" %></div>
                     <% if user_signed_in? && comment.user_id == current_user.id %>
-                        <%= link_to "Edit", edit_topic_comment_path(@topic.id, comment.id) %>
-                        <%= link_to "Delete", topic_comment_path(comment), method: :delete, data:{ confirm: "Are you sure?" } %>
+                        <div>
+                            <%= link_to "Edit", edit_topic_comment_path(@topic.id, comment.id) %>
+                            <%= link_to "Delete", topic_comment_path(comment), method: :delete, data:{ confirm: "Are you sure?" } %>
+                        </div>
                     <% end %>
+                    
                 </div>
+                <div class="comment_votes"><%= comment.votes %> votes <%= link_to '[ + ]', topics_path(@topic) %> <%= link_to '[ - ]', topics_path(@topic) %></div>
             </div>
         </li>
 
