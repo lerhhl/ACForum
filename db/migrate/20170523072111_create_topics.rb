@@ -5,6 +5,7 @@ class CreateTopics < ActiveRecord::Migration[5.1]
       t.text :body
       t.integer :votes, default: 0
       t.integer :status
+      t.string :tagstring
       t.references :tag, foreign_key: true
       t.references :user, foreign_key: true
 

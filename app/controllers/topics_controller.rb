@@ -1,12 +1,16 @@
 class TopicsController < ApplicationController
-before_action :set_topic, :only => [:show, :edit, :update, :destroy]
+  
+  # Find params before the following actions
+  before_action :set_topic, only: [:show, :edit, :update, :destroy]
+
+  # User needs to login before doing the following actions
+  before_action :authenticate_user!, only: [:new, :create, :edit, :destroy]
 
   def index
     @topics = Topic.all
   end
 
   def show
-    @topic = set_topic
   #default = display recent topic/comments
   #display search result
   end
@@ -16,8 +20,8 @@ before_action :set_topic, :only => [:show, :edit, :update, :destroy]
   end
 
   def create
-  #user_id = current_user.id
     @topic = Topic.new(topic_params)
+    @topic.votes = 0
     if @topic.save
       tagstring = params[:topic][:tagstring]
       @topic.set_tag_id(tagstring)
@@ -27,11 +31,12 @@ before_action :set_topic, :only => [:show, :edit, :update, :destroy]
     end
   end
 
+
   def edit
   end
 
   def update
-    @topic.update_attributes(topic_params)
+    @topic.update(topic_params)
     redirect_to topics_url(@topic)
   end
 
@@ -44,7 +49,7 @@ before_action :set_topic, :only => [:show, :edit, :update, :destroy]
 private
 
   def topic_params
-    params.require(:topic).permit(:title, :body, :user_id)
+    params.require(:topic).permit(:title, :body, :tagstring, :user_id, :status)
   end
   
   def set_topic

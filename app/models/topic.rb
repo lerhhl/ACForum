@@ -12,7 +12,7 @@ class Topic < ApplicationRecord
     "Abandoned":    3,
   }
 
-  attr_accessor :tagstring
+  #attr_accessor :tagstring
 
   def set_tag_id(tagstring)
     tagstring.downcase!
@@ -24,7 +24,9 @@ class Topic < ApplicationRecord
       else
         cur_tag = Tag.find_by(:name => tag)
       end
-      TopicTag.create(:topic_id => self.id, :tag_id => cur_tag.id)
+      if !TopicTag.exists?(:topic_id => self.id, :tag_id => cur_tag.id)
+        TopicTag.create(:topic_id => self.id, :tag_id => cur_tag.id)
+      end
     end
   end
 
