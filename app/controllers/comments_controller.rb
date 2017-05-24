@@ -10,14 +10,22 @@ before_action :set_comment, :only => [:show, :edit, :update, :destroy]
   end
 
   def create
+    @topic = Topic.find(params[:topic_id])
+    @comment = @topic.comments.new(comment_params)
+    @comment.votes = 0
+    if @comment.save
+      redirect_to topic_path(@topic)
+    else
+      render :new
+    end    
   end
 
   def edit
   end
 
   def update
-    @comment.update_attributes(comment_params)
-    redirect_to topics_url(@comment)
+    @comment.update(comment_params)
+    redirect_to topic_url(@comment.topic_id)
   end
 
   def destroy

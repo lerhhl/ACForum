@@ -1,4 +1,4 @@
-<h1> New Comment </h1>
+<h1>Edit Comment</h1>
 <% if @comment.errors.present?%>
   <ul>
     <% @comment.errors.each do |error, message|%>
@@ -8,7 +8,7 @@
 <% end%>
 
 <div class="form container">
-  <%= form_for [@topic, @comment] do |f| %>
+  <%= form_for [@comment.topic_id, @comment],  url: topic_comment_path(@comment.topic_id, @comment) do |f| %>
     <div>
     <%= f.label :content%>
     <%= f.text_field :content%>
@@ -18,7 +18,7 @@
 
     <%=  f.hidden_field :user_id, :value => current_user.id %>
     <%= f.submit %>
-    <%= link_to 'Back to index', topic_path(@topic) %>
+    <%= link_to 'Back to topic', topic_path(@comment.topic_id) %>
 
   <% end %>
 </div>
