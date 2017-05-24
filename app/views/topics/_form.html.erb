@@ -5,43 +5,36 @@
     <% end %>
   </ul>
 <% end%>
-<div class="form container">
+<div class="form_container">
   <%= form_for @topic do |f| %>
     <table>
-      <div>
         <tr>
           <td><%= f.label :title%></td>
           <td><%= f.text_field :title%></td>
         </tr>
-      </div>
-
-    <div>
       <tr>
         <td><%= f.label :body%></td>
-        <td style="width: 600px;"> <%= f.cktext_area :body, cols: 100 %> 
+        <td> <%= f.cktext_area :body, cols: 100 %> 
         
       </tr>
-    </div>
-   
-    <div>
       <tr>
-        <td><%= f.label :tagstring %> <br>Insert Tags seperated by<br># (eg.cats#food#toys)</td>
+        <td><%= f.label :tagstring %><p>Insert Tags seperated by<br># (eg.cats#food#toys)</p></td>
         <td><%= f.text_field :tagstring %></td>
       </tr>
-    </div>
-    
-    <div>
       <tr>
         <td><%= f.label :status %></td>
         <td><%= f.select :status, [['Draft'], ['Published'], ['Abandoned']] %> </td>
       </tr>
-    </div>
+
 
 
     Posting as <%= current_user.firstname %>
     <%=  f.hidden_field :user_id, :value => current_user.id %>
     <tr> 
-      <td><%= f.submit %></td>
+      <td colspan="2">
+        <div id="topic_submit">
+        <%= f.submit %></td>
+        </div>
     </tr>
     </table>
     <%= link_to 'Back to index', topics_path %>

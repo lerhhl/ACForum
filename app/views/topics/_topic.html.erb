@@ -1,13 +1,20 @@
 
     <li>
       <div class="topic_title">
-      <%= link_to "#{topic.title.capitalize}, updated on: #{topic.updated_at}", topic_path(topic) %>
+        <div>
+        <%= link_to "#{topic.title.capitalize}", topic_path(topic) %>
+        </div>
+        <div class="topic_manage">
+        <% if user_signed_in? && topic.user_id == current_user.id %>
+          <%= link_to 'Edit', edit_topic_path(topic)%>
+          <%= link_to "Delete", topic_path(topic), method: :delete, data:{ confirm: "Are you sure?" }%>
+        <% end %>
+        </div>
       </div>
       <div class="topic_info">
         <%= topic.comments.count %> comments
         <div class="topic_manage">
-          <%= link_to 'Edit', edit_topic_path(topic)%>
-          <%= link_to "Delete", topic_path(topic), method: :delete, data:{ confirm: "Are you sure?" }%>
+          <%= "Updated on: #{topic.updated_at}" %>
         </div>
       </div>
     </li>

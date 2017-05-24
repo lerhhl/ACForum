@@ -30,8 +30,10 @@
 
                 <div class="comment_content">
                     <%= "#{comment.content}" %>
-                    <%= link_to "Edit", edit_topic_comment_path(@topic.id, comment.id) %>
-                    <%= link_to "Delete", topic_comment_path(comment), method: :delete, data:{ confirm: "Are you sure?" } %>
+                    <% if user_signed_in? && comment.user_id == current_user.id %>
+                        <%= link_to "Edit", edit_topic_comment_path(@topic.id, comment.id) %>
+                        <%= link_to "Delete", topic_comment_path(comment), method: :delete, data:{ confirm: "Are you sure?" } %>
+                    <% end %>
                 </div>
             </div>
         </li>
