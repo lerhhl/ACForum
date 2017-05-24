@@ -11,7 +11,7 @@
 
 <hr>
 <br>
-<h3>Topics</h3>
+<h3>My Topics</h3>
  <% @topics.each do |topic|%>
     <li>
       <%= link_to "#{topic.title.capitalize}, updated on: #{topic.updated_at}", topic_path(topic) %>
@@ -20,7 +20,8 @@
     </li>
  <%end%>
 
- <h3>Latest Comments</h3>
+<hr> 
+ <h3>My Latest Comments</h3>
   <% @comments.each do |comment|%>
     <li>
       <%= link_to "#{comment.content.capitalize}, updated on: #{comment.updated_at}", topic_path(comment.topic_id)  %>
