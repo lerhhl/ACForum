@@ -8,6 +8,7 @@ class TopicsController < ApplicationController
 
   def index
     #@topics = Topic.page(params[:page]).per(10)
+
     
     # Search Controller
     if params[:search]
@@ -18,14 +19,16 @@ class TopicsController < ApplicationController
       @topics_id.uniq!
       
       @topics = Topic.where('id IN (?)', @topics_id)
+      if params[:sort]
+        @topics = @topics.order(params[:sort])
+      end
       @topics = @topics.page(params[:page]).per(10)
 
     else
       # Sort Controller
       if params[:sort]
-        if !@topics.present?
-          @topics = Topic.all
-        end
+
+        @topics = params[:topic_list]
 
         @topics = @topics.order(params[:sort]).page(params[:page]).per(10)
       else
