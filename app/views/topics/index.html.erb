@@ -1,19 +1,24 @@
-<h2> <input></input><button>Search</button></h2>
 
-<h3> List of topics </h3>
-  <ul>
-  <% @topics.each do |topic|%>
-    <li>
-      <%= link_to "#{topic.title.capitalize}, updated on: #{topic.updated_at}", topic_path(topic) %>
-      <%= link_to 'Edit', edit_topic_path(topic)%>
-      <%= link_to "Delete", topic_path(topic), method: :delete, data:{ confirm: "Are you sure?" }%>
-    </li>
-  <%end%>
-    <br>
-    <%= paginate @topics %>
-    <%= page_entries_info @topics %>
-    <button><%= link_to "New topic", new_topic_path%></button>
-  </ul>
+<%= form_tag(topics_path, :method => "get", id: "search-form") do %>
+  <%= text_field_tag :search, params[:search], placeholder: "Search Topics" %>
+  <%= submit_tag "Search" %>
+<% end %>
+
+<%= form_tag(topics_path, :method => "get", id: "sort-form") do %>
+  <%= select_tag :sort, options_for_select([['Date', 'created_at ASC'], ['Title', 'title DESC']]) %>
+  <%= submit_tag "Sort" %>
+<% end %>
+
+
+<% if @topics.present? %>
+  <%= render @topics %>
+  <%= paginate @topics %>
+  <%= page_entries_info @topics %>
+<% else %>
+  <p>There are no posts containing the term(s) <%= params[:search] %>.</p>
+<% end %>
+
+
 
 <h3> Search result next page</h3>
 

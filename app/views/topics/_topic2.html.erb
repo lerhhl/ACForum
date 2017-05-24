@@ -1,0 +1,16 @@
+HDASHDHDASH
+
+<h3> List of topics </h3>
+  <ul>
+  <% @topics.each do |topic|%>
+    <li>
+      <%= link_to "#{topic.title.capitalize}, updated on: #{topic.updated_at}", topic_path(topic) %>
+      <%= link_to 'Edit', edit_topic_path(topic)%>
+      <%= link_to "Delete", topic_path(topic), method: :delete, data:{ confirm: "Are you sure?" }%>
+    </li>
+  <%end%>
+    <br>
+    <%= paginate @topics %>
+    <%= page_entries_info @topics %>
+    <button><%= link_to "New topic", new_topic_path%></button>
+  </ul>

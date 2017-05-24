@@ -8,7 +8,25 @@ class TopicsController < ApplicationController
 
   def index
     @topics = Topic.page(params[:page]).per(10)
-end
+
+    # Search Controller
+    if params[:search]
+      @topics = []
+      @topics += Topic.searchtitle(params[:search]).order("created_at DESC")
+      @topics += Topic.searchbody(params[:search]).order("created_at DESC")
+      @topics = @topics.uniq.page(params[:page]).per(10)
+      if params[:sort]
+        @topics = @topics.order(params[:sort])
+      end
+    else
+      if params[:sort]
+        @topics = @topics.order(params[:sort])
+      else
+        @topics = Topic.all.order('created_at DESC').page(params[:page]).per(10)
+      end
+    end
+
+  end
 
   def show
   #default = display recent topic/comments

@@ -1,5 +1,4 @@
 class Topic < ApplicationRecord
-  default_scope { order(updated_at: :desc)  }
   belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :topic_tags, dependent: :destroy
@@ -29,5 +28,14 @@ class Topic < ApplicationRecord
       end
     end
   end
+
+  # Search
+    def self.searchtitle(search)
+      where("title LIKE ?", "%#{search}%") 
+    end
+    def self.searchbody(search)
+      where("body LIKE ?", "%#{search}%") 
+      
+    end
 
 end
