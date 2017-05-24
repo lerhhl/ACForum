@@ -30,12 +30,12 @@ class Topic < ApplicationRecord
   end
 
   # Search
-    def self.searchtitle(search)
-      where("title LIKE ?", "%#{search}%") 
-    end
-    def self.searchbody(search)
-      where("body LIKE ?", "%#{search}%") 
-      
-    end
+  def self.searchtitle(search)
+    where("title LIKE ?", "%#{search}%") 
+  end
+  
+  def self.searchbody(search)
+    where("body LIKE ?", "%#{search}%") 
+  end
 
 end

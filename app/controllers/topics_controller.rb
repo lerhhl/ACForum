@@ -7,25 +7,31 @@ class TopicsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :destroy]
 
   def index
-    @topics = Topic.page(params[:page]).per(10)
-
+    #@topics = Topic.page(params[:page]).per(10)
+    
     # Search Controller
     if params[:search]
-      @topics = []
-      @topics += Topic.searchtitle(params[:search]).order("created_at DESC")
-      @topics += Topic.searchbody(params[:search]).order("created_at DESC")
-      @topics = @topics.uniq.page(params[:page]).per(10)
-      if params[:sort]
-        @topics = @topics.order(params[:sort])
-      end
+
+      # Get topic ids array from search
+      @topics_id = Topic.searchtitle(params[:search]).order("created_at DESC").pluck(:id)
+      @topics_id += Topic.searchbody(params[:search]).order("created_at DESC").pluck(:id)
+      @topics_id.uniq!
+      
+      @topics = Topic.where('id IN (?)', @topics_id)
+      @topics = @topics.page(params[:page]).per(10)
+
     else
+      # Sort Controller
       if params[:sort]
-        @topics = @topics.order(params[:sort])
+        if !@topics.present?
+          @topics = Topic.all
+        end
+
+        @topics = @topics.order(params[:sort]).page(params[:page]).per(10)
       else
         @topics = Topic.all.order('created_at DESC').page(params[:page]).per(10)
       end
     end
-
   end
 
   def show
@@ -73,7 +79,6 @@ private
   def set_topic
     @topic = Topic.find(params[:id])
   end
-  
 
 end
 
