@@ -10,6 +10,8 @@
     </li>
   <%end%>
     <br>
+    <%= paginate @topics %>
+    <%= page_entries_info @topics %>
     <button><%= link_to "New topic", new_topic_path%></button>
   </ul>
 

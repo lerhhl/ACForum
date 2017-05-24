@@ -5,15 +5,19 @@
 <hr>
 
 <% comments_arr = @topic.comments %>
+<% @comments = @topic.comments.page(params[:page]).per(10)%>
 <h2>Comments(<%= comments_arr.count %>)</h2>
     <% comments_arr.each do |comment|%>
         <div>
             <%= "#{comment.content}, by #{comment.user.firstname} #{comment.user.lastname}, updated on: #{comment.updated_at}" %>
-            <%= link_to "Edit", edit_topic_comment_path(@topic.id, comment) %>
+            <%= link_to "Edit", edit_topic_comment_path(@topic.id, comment.id) %>
             <%= link_to "Delete", topic_comment_path(comment), method: :delete, data:{ confirm: "Are you sure?" } %>
         </div>
     <% end %>
-
+<br>
+    <%= paginate @comments %>
+    <%= page_entries_info @comments %>
+<br>
 <br>
     <div><button><%= link_to "New comment", new_topic_comment_path(@topic)%> </button></div>
 <br>

@@ -7,8 +7,8 @@ class TopicsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :destroy]
 
   def index
-    @topics = Topic.all
-  end
+    @topics = Topic.page(params[:page]).per(10)
+end
 
   def show
   #default = display recent topic/comments
