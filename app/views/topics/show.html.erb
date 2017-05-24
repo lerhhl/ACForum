@@ -9,7 +9,7 @@
     <% comments_arr.each do |comment|%>
         <div>
             <%= "#{comment.content}, by #{comment.user.firstname} #{comment.user.lastname}, updated on: #{comment.updated_at}" %>
-            <%= link_to "Delete", method: :delete, data:{ confirm: "Are you sure?" } %>
+            <%= link_to "Delete", topic_comment_path(comment), method: :delete, data:{ confirm: "Are you sure?" } %>
         </div>
     <% end %>
 

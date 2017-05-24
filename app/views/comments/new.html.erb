@@ -7,7 +7,7 @@
 <% end%>
 
 <div class="form container">
-  <%= form_for @comment do |f| %>
+  <%= form_for [@topic, @comment] do |f| %>
     <div>
     <%= f.label :content%>
     <%= f.text_field :content%>
@@ -15,9 +15,9 @@
 
     Posting as <%= current_user.firstname %>
 
-    <%=  f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
     <%= f.submit %>
-    <%= link_to 'Back to index', topic_path %>
+    <%= link_to 'Back to index', topic_path(@topic) %>
 
   <% end %>
 </div>
