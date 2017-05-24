@@ -1,0 +1,16 @@
+<h1> Edit User </h1>
+
+<%= form_for current_user, url: edit_user_registration_path(current_user) do |f| %>
+
+<%= f.label :firstname %>
+<%= f.text_field :firstname %>
+
+<%= f.label :lastname %>
+<%= f.text_field :lastname %>
+
+<%= f.label :file_location %>
+<%= f.file_field :file_location %>
+
+<%= f.submit %>
+
+<% end %>

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   end
   
   get 'topics/show', to: 'topics#show', as: 'show_path'
-
+  get '/profile/', to: 'profile#index'
+  get '/profile/edit', to: 'profile#edit'
 
 end
