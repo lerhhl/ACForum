@@ -1,5 +1,10 @@
 class CommentsController < ApplicationController
-before_action :set_comment, :only => [:show, :edit, :update, :destroy]
+  
+  # Find params before the following actions
+  before_action :set_comment, :only => [:show, :edit, :update, :destroy]
+
+  # User needs to login before doing the following actions
+  before_action :authenticate_user!, only: [:new, :create, :edit, :destroy]
 
   def index
   end
@@ -17,7 +22,7 @@ before_action :set_comment, :only => [:show, :edit, :update, :destroy]
       redirect_to topic_path(@topic)
     else
       render :new
-    end    
+    end
   end
 
   def edit
@@ -30,7 +35,7 @@ before_action :set_comment, :only => [:show, :edit, :update, :destroy]
 
   def destroy
     @comment.destroy
-    redirect_to topics_url
+    redirect_to topics_path
   end
 
   private

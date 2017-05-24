@@ -27,6 +27,6 @@ comment_2 = Comment.create(content: 'Cats are cool', topic_id: topic_1.id, user_
 comment_3 = Comment.create(content: 'I like dogs', topic_id: topic_2.id, user_id: user_1.id, votes: 3)
 comment_4 = Comment.create(content: 'Dogs are cool', topic_id: topic_2.id, user_id: user_1.id, votes: 2)
 
-#Topic.first.comment.first.update_attributes(:updated_at => 1.year.ago)
+#Topic.first.comments.first.update_attributes(:updated_at => 1.year.ago)
 
 #Tags

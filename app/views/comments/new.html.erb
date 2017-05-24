@@ -16,7 +16,7 @@
 
     Posting as <%= current_user.firstname %>
 
-    <%=  f.hidden_field :user_id, :value => current_user.id %>
+    <%= f.hidden_field :user_id, :value => current_user.id %>
     <%= f.submit %>
     <%= link_to 'Back to index', topic_path(@topic) %>
 
