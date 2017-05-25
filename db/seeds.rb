@@ -81,5 +81,31 @@ Topic.all.each do |topic|
   end  
 end
 
+#Create tags
+
+10.times do
+  tagname = Faker::Cat.name
+
+  Tag.create(:name => tagname)
+end
+
+#Assign tags to topics
+
+100.time do
+
+  offset = rand(Topic.count)
+  chosen_topic = Topic.offset(offset).limit(1).first
+
+  offset = rand(Tag.count)
+  chosen_tag = Tag.offset(offset).limit(1).first
+
+  if chosen_topic.tags.exists?(:id => chosen_tag.id)
+    
+  else
+    TopicTag.create(:tag_id => chosen_tag.id , :topic_id => chosen_topic.id)
+  end
+  
+end
+
 
 

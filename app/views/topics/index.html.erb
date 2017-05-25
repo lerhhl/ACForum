@@ -1,4 +1,5 @@
 <% @search = params[:search] %>
+<% @tag = params[:tag] %>
 <div id="searchandsort">
   <div id="search">
   <button><%= link_to "New Topic", new_topic_path%> </button>
@@ -14,10 +15,15 @@
       <%= select_tag :sort, options_for_select([['Votes', 'votes '], ['Date', 'created_at '], ['Title', 'title '],['Status', 'status '],['Number of comments', 'comments_count '],['Comment date', 'comment_date '],['View count', 'view_counts ']]) %>
       <%= select_tag :sorttype, options_for_select([['Descending', 'DESC'], ['Ascending', 'ASC']]) %>
       <%= hidden_field_tag :search, value = @search %>
+      <%= hidden_field_tag :tag, value = @tag %>
       <%= submit_tag "Sort", id: "submitbutton" %>
     <% end %>
   </div>
 </div>
+
+
+<%= link_to "Tag1", topics_path(:tag => 1, :search => @search) %>
+
 <div class="content">
   <% if @topics.present? %>
     <%= render @topics %>

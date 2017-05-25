@@ -8,29 +8,37 @@ class TopicsController < ApplicationController
 
   def index
     #@topics = Topic.page(params[:page]).per(10)
+    
 
+    if params[:tag] != nil
+      @tag = Tag.find(params[:tag])
+      @topic_list = @tag.topics.where(status: 2)
+    else
+      @topic_list = Topic.where(status: 2)
+    end
+    
     # Search Controller
     if params[:search]
-
       # Get topic ids array from search
-      @topics_id = Topic.where(status: 2).searchtitle(params[:search]).order("created_at DESC").pluck(:id)
-      @topics_id += Topic.where(status: 2).searchbody(params[:search]).order("created_at DESC").pluck(:id)
+      @topics_id = @topic_list.searchtitle(params[:search]).pluck(:id)
+      @topics_id += @topic_list.searchbody(params[:search]).pluck(:id)
       @topics_id.uniq!
-      @topics = Topic.where('id IN (?)', @topics_id)
+      @topics = Topic.where('id IN (?)', @topics_id).order("created_at DESC")
       if params[:sort]
         sortstring = params[:sort] + params[:sorttype]
         @topics = @topics.order(sortstring)
       end
       @topics = @topics.page(params[:page]).per(10)
+      byebug
 
     else
       # Sort Controller
       if params[:sort]
         sortstring = params[:sort] + params[:sorttype]
-        @topics = Topic.where(status: 2)
+        @topics = @topic_list
         @topics = @topics.order(sortstring).page(params[:page]).per(10)
       else
-        @topics = Topic.where(status: 2).order('created_at DESC').page(params[:page]).per(10)
+        @topics = @topic_list.order('created_at DESC').page(params[:page]).per(10)
       end
     end
   end
@@ -47,6 +55,7 @@ class TopicsController < ApplicationController
   def create
     @topic = Topic.new(topic_params)
     @topic.votes = 0
+    @topic.view_counts = 0
     if @topic.save
       tagstring = params[:topic][:tagstring]
       @topic.set_tag_id(tagstring)

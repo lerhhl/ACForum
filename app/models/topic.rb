@@ -2,6 +2,7 @@ class Topic < ApplicationRecord
   belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :topic_tags, dependent: :destroy
+  has_many :tags, :through => :topic_tags
   
   validates :title, :body, :user_id, :status, presence: true 
 
@@ -19,7 +20,7 @@ class Topic < ApplicationRecord
     
     tag_arr.each do |tag|
       if !Tag.exists?(:name => tag)
-        cur_tag = Tag.create(:name => tag)
+        cur_tag = Tag.create(:name => tag, :topics_count => 0)
       else
         cur_tag = Tag.find_by(:name => tag)
       end
