@@ -95,6 +95,14 @@ class TopicsController < ApplicationController
   end
 
   def about
+    @total_pageviews = 0
+    @total_votes = 0
+    Topic.all.each do |topic|
+      @total_pageviews += topic.view_counts
+      @total_votes += topic.votes
+    end
+    
+
   end
   
 

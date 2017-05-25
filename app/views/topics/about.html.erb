@@ -1,7 +1,26 @@
 <div class="container">
   <div class="aboutbox">
+  <ul>
+    <li>Total Topics: <%= Topic.all.count %></li>
     <li>Total Topics Published: <%= Topic.where(status: 2).count %></li>
+    <li>Total Topics Drafted: <%= Topic.where(status: 1).count %></li>
+  </ul>
+  <ul>
+    <li>Total Comments: <%= Comment.all.count %></li>
     <li>Total Comments Published: <%= Comment.where(status: 2).count %></li>
+    <li>Total Comments Drafted: <%= Comment.where(status: 1).count %></li>
+  </ul>
+  <ul>
+    <li>Total Tags: <%= Tag.all.count %></li>
+  </ul>
+  <ul>
+    <li>Total Pageviews: <%= @total_pageviews %></li>
+  </ul>
+  <ul>
+    <li>Total Votes: <%= @total_votes %></li>
+  </ul>
+  <ul>
     <li>Total Users: <%= User.count %></li>
+  </ul>
   </div>
 </div>
