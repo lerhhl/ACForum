@@ -7,26 +7,27 @@ class TopicsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :destroy]
 
   def index
-    #@topics = Topic.page(params[:page]).per(10)
-    
+    # @topics = Topic.page(params[:page]).per(10)
 
-    if params[:tag] != nil
+    if params[:tag] != nil && params[:tag] != ""
       @tag = Tag.find(params[:tag])
       @topic_list = @tag.topics.where(status: 2)
     else
       @topic_list = Topic.where(status: 2)
     end
-    
+
     # Search Controller
     if params[:search]
       # Get topic ids array from search
       @topics_id = @topic_list.searchtitle(params[:search]).pluck(:id)
       @topics_id += @topic_list.searchbody(params[:search]).pluck(:id)
       @topics_id.uniq!
-      @topics = Topic.where('id IN (?)', @topics_id).order("created_at DESC")
+      @topics = Topic.where('id IN (?)', @topics_id)
       if params[:sort]
         sortstring = params[:sort] + params[:sorttype]
         @topics = @topics.order(sortstring)
+      else
+        @topics = @topics.order('created_at DESC')
       end
       @topics = @topics.page(params[:page]).per(10)
 
