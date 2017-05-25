@@ -6,6 +6,7 @@
             <%= link_to "AC Forum", root_path, id: "logo" %>
             <ul id='nav'>
                 <li><%= link_to "Home", root_path %></li>
+                <li><%= link_to "About", root_path %></li>
                 <% if !user_signed_in? %>
                     <li><%= link_to "Log in", new_user_session_path %></li>
                     <li><%= link_to "Register", new_user_registration_path %></li>
