@@ -20,12 +20,12 @@ User.create(firstname: firstname, lastname: lastname, is_admin: false,
 
 # User
 # Create 50 users
-30.times do
+10.times do
   firstname = Faker::Name.first_name
   lastname = Faker::Name.last_name
   email = Faker::Internet.email
-  avatar = Faker::Avatar.image
-  #avatar = ""
+  #avatar = Faker::Avatar.image
+  avatar = ""
 
   User.create(firstname: firstname, lastname: lastname, is_admin: false,
               email: email, password: 'password',
@@ -53,7 +53,7 @@ end
 # Comment
 # Create 200 Comments
 
-500.times do 
+200.times do 
   content = Faker::HarryPotter.quote + Faker::HarryPotter.quote
   offset = rand(Topic.count)
   topic_id = Topic.offset(offset).limit(1).first.id
@@ -67,8 +67,18 @@ end
 end
 
 Topic.all.each do |topic|
-  topic.comments_count = topic.comments.count
+  topic.comments_count = topic.comments.where(status: 2).count
   topic.save
 end
+
+Topic.all.each do |topic|
+  topic.comments.each do |comment|
+    if topic.comment_date == nil || topic.comment_date < comment.updated_at
+      topic.comment_date = comment.updated_at
+      topic.save
+    end
+  end  
+end
+
 
 

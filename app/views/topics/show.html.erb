@@ -8,7 +8,7 @@
 </div>
 <hr>
 
-<% comments_arr = @topic.comments %>
+<% comments_arr = @topic.comments.where(status: 2) %>
 <% @comments = @topic.comments.page(params[:page]).per(10)%>
 <h2>Comments(<%= comments_arr.count %>)</h2>
     <% comments_arr.each do |comment|%>
@@ -33,7 +33,7 @@
                     <% if user_signed_in? && comment.user_id == current_user.id %>
                         <div>
                             <%= link_to "Edit", edit_topic_comment_path(@topic.id, comment.id) %>
-                            <%= link_to "Delete", topic_comment_path(comment), method: :delete, data:{ confirm: "Are you sure?" } %>
+                            <%= link_to "Delete", topic_comment_path(topic_id: @topic.id, id: comment.id), method: :delete, data:{ confirm: "Are you sure?" } %>
                         </div>
                     <% end %>
                     

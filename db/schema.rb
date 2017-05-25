@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170525010537) do
+ActiveRecord::Schema.define(version: 20170525025517) do
 
   create_table "ckeditor_assets", force: :cascade do |t|
     t.string "data_file_name", null: false
@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20170525010537) do
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "topics_count", default: 0
   end
 
   create_table "topic_tags", force: :cascade do |t|
@@ -61,6 +62,7 @@ ActiveRecord::Schema.define(version: 20170525010537) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "comments_count", default: 0
+    t.datetime "comment_date"
     t.index ["user_id"], name: "index_topics_on_user_id"
   end
 
