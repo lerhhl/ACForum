@@ -1,3 +1,5 @@
+<% comments_arr = @topic.comments %>
+
 <div class="content">
 <div class="show_topic_title">
     <h1><%= @topic.title %></h1>
@@ -8,53 +10,15 @@
 </div>
 <hr>
 
-<% comments_arr = @topic.comments.where(status: 2) %>
-<% @comments = @topic.comments.page(params[:page]).per(10)%>
-<h2>Comments(<%= comments_arr.count %>)</h2>
-    <% comments_arr.each do |comment|%>
-        <li class="comment_box">
-            <div class="avatar">
-                <% if comment.user.avatar.url.present? %>
-                    <%= image_tag(comment.user.avatar.url(:thumb), class: "img-thumbnail",) %>
-                <% end %>
-            </div>
-            <div class="comment_box_2">
-                <div class="comments_info">
-                    <div>
-                    <%= "#{comment.user.firstname} #{comment.user.lastname}"%>
-                    </div>
-                    <div>
-                    <%= "updated on: #{comment.updated_at}" %>
-                    </div>
-                </div>
+<% commentlink = "<h2>Comments(#{comments_arr.where(status: 2).count})"%>
+<%= link_to commentlink.html_safe,topic_path(topic_id: @topic.id, draftpage: 0 )%>
 
-                <div class="comment_content">
-                    <div><%= "#{comment.content}" %></div>
-                    <% if user_signed_in? && comment.user_id == current_user.id %>
-                        <div>
-                            <%= link_to "Edit", edit_topic_comment_path(@topic.id, comment.id) %>
-                            <%= link_to "Delete", topic_comment_path(topic_id: @topic.id, id: comment.id), method: :delete, data:{ confirm: "Are you sure?" } %>
-                        </div>
-                    <% end %>
-                    
-                </div>
-                <div class="comment_votes"><%= comment.votes %> votes <%= link_to '[ + ]', topics_path(@topic) %> <%= link_to '[ - ]', topics_path(@topic) %></div>
-            </div>
-        </li>
-
-    <% end %>
-<br>
-<div id="paginate">
-    <%= paginate @comments %>
-    <%= page_entries_info @comments %>
-</div>
-
-    <div class="show_topic_bottom">
-    <button><%= link_to "New comment", new_topic_comment_path(@topic)%> </button>
-    <%= link_to "Back", topics_path %>
-    </div>
-<br>
+<% if user_signed_in? %>
+  <% draftlink = " | Drafts (#{comments_arr.where(status: 1, user_id: current_user.id).count})</h2>"%>
+  <%= link_to draftlink.html_safe, topic_path(topic_id: @topic.id, draftpage: 1) %>
+<% else %>
+  </h2>
+<% end %>
 
 
-<hr>
-</div>
+<%= render 'showcomments', :comments_arr => comments_arr, :topic=> @topic%>
