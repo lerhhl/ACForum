@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   devise_for :users, :controllers => { registrations: 'registrations' }
   
   root 'topics#index'
-  
+  get 'topics/about', to: 'topics#about', as: 'about'
   resources :topics do
     resources :comments
   end
@@ -15,5 +15,5 @@ Rails.application.routes.draw do
   get 'topics/show', to: 'topics#show', as: 'show_path'
   get '/profile/', to: 'profile#index'
   get '/profile/edit', to: 'profile#edit'
-
+ 
 end

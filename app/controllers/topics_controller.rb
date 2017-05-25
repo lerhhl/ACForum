@@ -9,7 +9,6 @@ class TopicsController < ApplicationController
   def index
     #@topics = Topic.page(params[:page]).per(10)
 
-    
     # Search Controller
     if params[:search]
 
@@ -70,6 +69,9 @@ class TopicsController < ApplicationController
   def destroy
     @topic.destroy
 		redirect_to topics_url
+  end
+
+  def about
   end
   
 
