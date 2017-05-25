@@ -17,7 +17,7 @@ User.create(firstname: firstname, lastname: lastname, is_admin: false, email: em
 
 # User
 # Create 50 users
-50.times do
+30.times do
   firstname = Faker::Name.first_name
   lastname = Faker::Name.last_name
   email = Faker::Internet.email
@@ -29,14 +29,15 @@ end
 
 # Topic
 # Create 100 topics
-100.times do
+30.times do
   title = Faker::HarryPotter.quote
   body = Faker::HarryPotter.quote + Faker::HarryPotter.quote + Faker::HarryPotter.quote + Faker::HarryPotter.quote
   votes = Faker::Number.between(-999, 999)
   status = Faker::Number.between(1, 3)
   user_id = User.order('RANDOM()').first.id
+  comments_count = 0
 
-  Topic.create(title: title, body: body, user_id: user_id, votes: votes, status: status)
+  Topic.create(title: title, body: body, user_id: user_id, votes: votes, status: status, comments_count: comments_count )
 end
 
 # Comment
@@ -52,5 +53,9 @@ end
   Comment.create(content: content, topic_id: topic_id, user_id: user_id, votes: votes, status: status)
 end
 
+Topic.all.each do |topic|
+  topic.comments_count = topic.comments.count
+  topic.save
+end
 
 

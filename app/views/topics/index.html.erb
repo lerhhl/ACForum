@@ -5,7 +5,7 @@
 <% end %>
 
 <%= form_tag(topics_path, :method => "get", id: "sort-form") do %>
-  <%= select_tag :sort, options_for_select([['Date', 'created_at ASC'], ['Title', 'title DESC'],['Status', 'status DESC']]) %>
+  <%= select_tag :sort, options_for_select([['Date', 'created_at ASC'], ['Title', 'title DESC'],['Status', 'status DESC'],['Number of comments', 'comments_count DESC']]) %>
   <%= hidden_field_tag :search, value = @search %>
   <%= submit_tag "Sort" %>
 <% end %>
