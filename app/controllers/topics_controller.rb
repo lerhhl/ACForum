@@ -17,7 +17,6 @@ class TopicsController < ApplicationController
       @topics_id = Topic.searchtitle(params[:search]).order("created_at DESC").pluck(:id)
       @topics_id += Topic.searchbody(params[:search]).order("created_at DESC").pluck(:id)
       @topics_id.uniq!
-
       @topics = Topic.where('id IN (?)', @topics_id)
       if params[:sort]
         sortstring = params[:sort] + params[:sorttype]
@@ -29,8 +28,8 @@ class TopicsController < ApplicationController
       # Sort Controller
       if params[:sort]
         sortstring = params[:sort] + params[:sorttype]
-        @topics = params[:topic_list]
 
+        @topics = Topic.all
         @topics = @topics.order(sortstring).page(params[:page]).per(10)
       else
         @topics = Topic.all.order('created_at DESC').page(params[:page]).per(10)
