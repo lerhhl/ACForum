@@ -47,6 +47,7 @@ class TopicsController < ApplicationController
   def create
     @topic = Topic.new(topic_params)
     @topic.votes = 0
+    @topic.view_counts = 0
     if @topic.save
       tagstring = params[:topic][:tagstring]
       @topic.set_tag_id(tagstring)

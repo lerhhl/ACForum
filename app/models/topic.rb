@@ -2,6 +2,7 @@ class Topic < ApplicationRecord
   belongs_to :user
   has_many :comments, dependent: :destroy
   has_many :topic_tags, dependent: :destroy
+  has_many :tags, :through => :topic_tags
   
   validates :title, :body, :user_id, :status, presence: true 
 
