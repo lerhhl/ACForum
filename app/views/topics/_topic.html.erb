@@ -13,7 +13,7 @@
       </div>
       <div class="topic_info">
         <div class="topic_votes">
-          <%= topic.comments.count %> comments | <%= topic.votes %> votes <%= link_to ' [ + ]', topics_path(@topic) %> <%= link_to '[ - ]', topics_path(@topic) %>
+          <%= topic.comments_count %> comments | <%= topic.votes %> votes <%= link_to ' [ + ]', topics_path(@topic) %> <%= link_to '[ - ]', topics_path(@topic) %>
         </div>
         <div class="topic_manage">
           <%= "Updated on: #{topic.updated_at}" %>
