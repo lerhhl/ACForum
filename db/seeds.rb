@@ -44,7 +44,7 @@ end
   status = Faker::Number.between(1, 3)
   offset = rand(User.count)
   user_id = User.offset(offset).limit(1).first.id
-  view_counts = Faker::Number.between(-999, 999)
+  view_counts = Faker::Number.between(0, 999)
   comments_count = 0
   
   Topic.create(title: title, body: body, user_id: user_id, votes: votes,
