@@ -1,0 +1,39 @@
+
+<div class="container">
+  <div class="userlist_contain">
+    <% @userlist.each do |user| %>
+
+      <li class="userlist_box">
+        <div class="avatar">
+            <% if user.avatar.url.present? %>
+                <%= image_tag(user.avatar.url(:thumb), class: "img-thumbnail",) %>
+            <% end %>
+        </div>
+        
+          <div class="userlist_content">
+            <div class="userlist_title">
+              <%= "#{user.firstname} #{user.lastname}"%>
+            </div>
+
+            <div class="userlist_posts">
+              <%= user.topics.count %> Posts, <%= user.comments.count %> Comments
+            
+            </div>
+          </div>
+
+
+
+          <div class="userlist_box_2">
+            <% if user_signed_in? && current_user.is_admin == true %>
+              <div>
+                <%= link_to "Edit", root_path %>
+                <%= link_to "Delete", root_path, method: :delete, data:{ confirm: "Are you sure?" } %>
+              </div>
+            <% end %>
+          </div>
+        
+      </li>
+
+    <% end %>
+  </div>
+</div>

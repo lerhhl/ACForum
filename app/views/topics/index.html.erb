@@ -22,10 +22,18 @@
 </div>
 
 
-<%= link_to "Tag1", topics_path(:tag => 1, :search => @search) %>
-
 <div class="content">
   <% if @topics.present? %>
+
+
+    <div class="show_topic_tags">
+      Tags: 
+      <% @taglist.each do |tagid, tagcount| %>
+          <%= link_to "<span>#{Tag.find(tagid).name}(#{tagcount})</span>".html_safe, topics_path(:tag => tagid, :search => @search)  %>
+      <% end %> 
+      <br>
+    </div>
+
     <%= render @topics %>
 
     <div id="paginate">

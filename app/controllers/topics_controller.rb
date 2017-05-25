@@ -29,7 +29,6 @@ class TopicsController < ApplicationController
         @topics = @topics.order(sortstring)
       end
       @topics = @topics.page(params[:page]).per(10)
-      byebug
 
     else
       # Sort Controller
@@ -41,6 +40,22 @@ class TopicsController < ApplicationController
         @topics = @topic_list.order('created_at DESC').page(params[:page]).per(10)
       end
     end
+
+    # Tags
+    @taglist = {}
+    @topics.each do |topic|
+      topic.tags.each do |tagname|
+        if !@taglist.keys.include?(tagname.id)
+          @taglist[tagname.id] = 1
+        else
+          @taglist[tagname.id] += 1
+        end
+      end
+    end
+    @taglist = @taglist.sort_by { |k, v| v }.reverse.first(10)
+
+
+
   end
 
   def show
