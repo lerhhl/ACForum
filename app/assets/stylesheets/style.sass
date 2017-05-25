@@ -1,0 +1,175 @@
+.container
+  display: flex
+  justify-content: center
+  flex-direction: column
+
+.new_user
+  display: flex
+  justify-content: center
+  flex-direction: column
+  .field
+    display: flex
+    justify-content: center
+header
+  nav
+    display: flex
+    justify-content: space-between
+    align-items: flex-end
+    padding: 20px 0 0 0 
+    #logo
+      font-size: 3em
+    ul
+      display: flex
+      justify-content: space-between
+      flex-direction: row
+    li
+      list-style: none 
+      a
+        padding: 10px 30px
+  
+    h1
+      padding: none
+
+body
+  #searchandsort
+    display: flex
+    justify-content: space-between
+    align-items: flex-end
+    padding: 30px 10px
+    #search
+      display: flex
+      flex-direction: row
+      button
+        margin: 0 20px 0 0 
+      #search-form
+        display: flex
+        flex-direction: row
+        flex-wrap: nowrap
+        #search
+          width: 300px
+          height: 30px
+    #sort
+      #sort-form
+        display: flex
+        flex-direction: row
+  .content
+    display: flex
+    flex-direction: column
+    li
+      list-style: none
+      padding: 10px 10px
+      border-bottom: 1px solid #cecece
+      &:hover
+        background-color: #f2f2f2
+    .topic_title
+      display: flex
+      justify-content: space-between
+      font-size: 1.2em
+      a
+        padding: 10px 0 30px 0
+        &:hover
+          text-decoration: none
+    .topic_info
+      display: flex
+      justify-content: space-between
+      .topic_votes
+        display: flex
+        align-items: flex-end
+        font-size: 0.9em
+        &:hover
+          font-size: 1em
+          transition: 0.2s
+      .topic_manage
+        padding: 0 0 0 0
+        font-size: 1em
+    #pagination
+      display: flex
+      flex-direction: row
+
+//Topics
+
+.show_topic_title
+  padding: 20px 0
+.show_topic_content
+
+.show_topic_bottom
+  display: flex
+  flex-direction: column
+  justify-content: flex-end
+
+//Comments in topics
+.comment_box
+  display: flex
+  flex-direction: row
+  position: relative
+  .avatar
+    width: 50px
+    height: 50px
+    background-color: silver
+    margin: 10px
+
+.comments_info
+  display: flex
+  justify-content: space-between
+
+.comment_box_2
+  flex: 1
+.comment_content
+  padding: 10px 10px
+  flex: 1
+  display: flex
+  flex-direction: column
+
+.comment_votes
+  font-size: 0.8em
+  &:hover
+    font-size: 1em
+    transition: 0.2s
+
+// User Profile
+
+.basic_info
+  display: flex
+  justify-content: space-between
+
+
+#footer
+  border-top: 1px solid #cecece
+  ul
+    display: flex
+    flex-direction: row
+    justify-content: flex-end
+    li
+      border: none
+      list-style: none
+      padding: 10px 10px
+
+// New topic
+.form_container
+  display: flex
+  justify-content: center
+.new_topic
+  
+  #topic_title
+    width: 600px
+    height: 50px
+    font-size: 2em 
+    margin: 10px 0 10px 0
+  label
+    display: flex
+    justify-content: flex-start
+    align-items: center
+    font-size: 2em
+    margin: 0 10px 0 0
+  p
+    font-size: 1em
+  table
+    display: flex
+    tbody
+      flex: 1
+    tr
+      td
+        padding: 10px
+      #topic_submit
+        display: flex
+        justify-content: flex-end

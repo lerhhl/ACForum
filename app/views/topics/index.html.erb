@@ -1,29 +1,35 @@
 <% @search = params[:search] %>
-<%= form_tag(topics_path, :method => "get", id: "search-form") do %>
-  <%= text_field_tag :search, params[:search], placeholder: "Search Topics" %>
-  <%= submit_tag "Search" %>
-<% end %>
+<div id="searchandsort">
+  <div id="search">
+  <button><%= link_to "New Topic", new_topic_path%> </button>
+    <%= form_tag(topics_path, :method => "get", id: "search-form") do %>
+      <%= text_field_tag :search, params[:search], placeholder: "Search Topics" %>
+      <%= submit_tag "Search" %>
+    <% end %>
+  </div>
+  
+  <div id="sort">
+  Sort by:
+    <%= form_tag(topics_path, :method => "get", id: "sort-form") do %>
+      <%#= select_tag :sort, options_for_select([['Votes', 'votes ASC'], ['Date', 'created_at ASC'], ['Title', 'title DESC'],['Status', 'status DESC']]) %>
+      <%= select_tag :sort, options_for_select([['Votes', 'votes '], ['Date', 'created_at '], ['Title', 'title '],['Status', 'status '],['Number of comments', 'comments_count']]) %>
+      <%= select_tag :sorttype, options_for_select([['Descending', 'DESC'], ['Ascending', 'ASC']]) %>
+      <%= hidden_field_tag :search, value = @search %>
+      <%= submit_tag "Sort", id: "submitbutton" %>
+    <% end %>
+  </div>
+</div>
+<div class="content">
+  <% if @topics.present? %>
+    <%= render @topics %>
+    
+    <div id="paginate">
+      <%= paginate @topics %>
+      <%= page_entries_info @topics %>
+    </div>
+  <% else %>
+    <p>There are no posts containing the term(s) <%= params[:search] %>.</p>
+  <% end %>
 
-<%= form_tag(topics_path, :method => "get", id: "sort-form") do %>
-  <%= select_tag :sort, options_for_select([['Date', 'created_at ASC'], ['Title', 'title DESC'],['Status', 'status DESC'],['Number of comments', 'comments_count DESC']]) %>
-  <%= hidden_field_tag :search, value = @search %>
-  <%= submit_tag "Sort" %>
-<% end %>
-
-
-<% if @topics.present? %>
-  <%= render @topics %>
-  <%= paginate @topics %>
-  <%= page_entries_info @topics %>
-<% else %>
-  <p>There are no posts containing the term(s) <%= params[:search] %>.</p>
-<% end %>
-
-
-
-<h3> Search result next page</h3>
-
-
-<p>Footer below</p>
 
 
