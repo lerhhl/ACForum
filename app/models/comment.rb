@@ -7,4 +7,8 @@ class Comment < ApplicationRecord
     "Published":    2,
     "Abandoned":    3,
   }
+
+  # Scopes
+  scope :published_comments, -> {where(status: 2)}
+  scope :draft_comments, -> {where(status: 1)}  
 end

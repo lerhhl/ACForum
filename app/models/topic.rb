@@ -12,6 +12,10 @@ class Topic < ApplicationRecord
     "Abandoned":    3,
   }
 
+  # Scopes
+  scope :published_topics, -> {where(status: 2)}
+  scope :draft_topics, -> {where(status: 1)}
+
   #attr_accessor :tagstring
 
   def set_tag_id(tagstring)
@@ -32,11 +36,11 @@ class Topic < ApplicationRecord
 
   # Search
   def self.searchtitle(search)
-    where("title LIKE ?", "%#{search}%") 
+    published_topics.where("title LIKE ?", "%#{search}%").order("created_at DESC").pluck(:id)
   end
   
   def self.searchbody(search)
-    where("body LIKE ?", "%#{search}%") 
+    published_topics.where("body LIKE ?", "%#{search}%").order("created_at DESC").pluck(:id)
   end
 
 end

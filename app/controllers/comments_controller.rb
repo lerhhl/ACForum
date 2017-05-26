@@ -22,7 +22,7 @@ class CommentsController < ApplicationController
       #increase the comments_count in the topic
        if @comment.status == 'Published'
         @topic.comments_count += 1
-        @topic.comment_date = @topic.comments.where(status: 2).order('updated_at DESC').first.updated_at
+        @topic.comment_date = @topic.comments.published_comments.order('updated_at DESC').first.updated_at
         @topic.save
       end
       redirect_to topic_path(@topic)
@@ -36,8 +36,8 @@ class CommentsController < ApplicationController
 
   def update
     @comment.update(comment_params)
-    @topic.comments_count = @topic.comments.where(status: 2).count
-    @topic.comment_date = @topic.comments.where(status: 2).order('updated_at DESC').first.updated_at
+    @topic.comments_count = @topic.comments.published_comments.count
+    @topic.comment_date = @topic.comments.published_comments.order('updated_at DESC').first.updated_at
     @topic.save
     redirect_to topic_url(@comment.topic_id)
   end
@@ -45,7 +45,7 @@ class CommentsController < ApplicationController
   def destroy
     @comment.destroy
     @topic.comments_count -= 1
-    @topic.comment_date = @topic.comments.where(status: 2).order('updated_at DESC').first.updated_at
+    @topic.comment_date = @topic.comments.published_comments.order('updated_at DESC').first.updated_at
     @topic.save
     #decrease the comments_count in the topic    
     redirect_to topic_path(@topic)
