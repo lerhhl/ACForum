@@ -8,6 +8,18 @@ User.delete_all
 
 
 # Users - Create Admin
+firstname = "Admin"
+lastname = "Admin"
+email = "admin@admin.com"
+avatar = Faker::Avatar.image
+
+User.create(firstname: firstname, lastname: lastname, is_admin: true,
+            email: email, password: 'password',
+            password_confirmation: 'password',
+            remote_avatar_url: avatar)
+
+# Users - Create Demo
+
 firstname = "Demo"
 lastname = "Demo"
 email = "demo@demo.com"
@@ -35,13 +47,13 @@ end
 
 # Topic
 # Create 100 topics
-30.times do
+60.times do
   title = Faker::HarryPotter.quote
   body = Faker::HarryPotter.quote + Faker::HarryPotter.quote +
          Faker::HarryPotter.quote + Faker::HarryPotter.quote +
          Faker::HarryPotter.quote + Faker::HarryPotter.quote
   votes = Faker::Number.between(-999, 999)
-  status = Faker::Number.between(1, 3)
+  status = Faker::Number.between(1, 2)
   offset = rand(User.count)
   user_id = User.offset(offset).limit(1).first.id
   view_counts = Faker::Number.between(0, 999)
@@ -54,14 +66,14 @@ end
 # Comment
 # Create 200 Comments
 
-200.times do 
+300.times do 
   content = Faker::HarryPotter.quote + Faker::HarryPotter.quote
   offset = rand(Topic.count)
   topic_id = Topic.offset(offset).limit(1).first.id
   offset = rand(User.count)
   user_id = User.offset(offset).limit(1).first.id
   votes = Faker::Number.between(-999 , 999)
-  status = Faker::Number.between(1, 3)
+  status = Faker::Number.between(1, 2)
 
   Comment.create(content: content, topic_id: topic_id, user_id: user_id,
                  votes: votes, status: status)
@@ -79,6 +91,33 @@ Topic.all.each do |topic|
       topic.save
     end
   end  
+end
+
+#Create tags
+
+30.times do
+  tagname = Faker::Color.color_name
+  if !Tag.exists?(:name => tagname)
+    Tag.create(:name => tagname)
+  end
+end
+
+#Assign tags to topics
+
+200.times do
+
+  offset = rand(Topic.count)
+  chosen_topic = Topic.offset(offset).limit(1).first
+
+  offset = rand(Tag.count)
+  chosen_tag = Tag.offset(offset).limit(1).first
+
+  if chosen_topic.tags.exists?(:id => chosen_tag.id)
+    
+  else
+    TopicTag.create(:tag_id => chosen_tag.id , :topic_id => chosen_topic.id)
+  end
+  
 end
 
 

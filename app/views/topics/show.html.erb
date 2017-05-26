@@ -4,11 +4,19 @@
 
 <div class="content">
 <div class="show_topic_title">
-    <h1><%= @topic.title %></h1>
+  <h1><%= @topic.title %></h1>
+</div>
+
+<div class="show_topic_tags">
+  Tags: 
+  <% @topic.tags.each do |tagname| %>
+      <%= link_to "<span>#{tagname.name}</span>".html_safe, topics_path(:tag => tagname.id)  %>
+  <% end %> 
+  <br>
 </div>
 
 <div class="show_topic_content">
-   <%= @topic.body.html_safe %>
+  <%= @topic.body.html_safe %>
 </div>
 <hr>
 
@@ -24,3 +32,4 @@
 
 
 <%= render 'showcomments', :comments_arr => comments_arr, :topic=> @topic%>
+

@@ -13,7 +13,11 @@
       </div>
       <div class="topic_info">
         <div class="topic_votes">
-          <%= topic.comments_count %> comments | <%= topic.view_counts %> views | <%= topic.votes %> votes <%= link_to ' [ + ]', topics_path(@topic) %> <%= link_to '[ - ]', topics_path(@topic) %>
+          <%= topic.comments_count %> comments | <%= topic.view_counts %> views 
+          | <%= topic.votes %> votes <%= link_to ' [ + ]', topics_path(@topic) %> <%= link_to ' [ - ] ', topics_path(@topic) %> | Tags: 
+          <% topic.tags.each do |tagname| %>
+              <%= "<span>#{tagname.name}</span>".html_safe  %>
+            <% end %>
         </div>
         <div class="topic_manage">
           <%= "Posted on: #{topic.updated_at}" %>

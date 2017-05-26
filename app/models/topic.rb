@@ -24,7 +24,7 @@ class Topic < ApplicationRecord
     
     tag_arr.each do |tag|
       if !Tag.exists?(:name => tag)
-        cur_tag = Tag.create(:name => tag)
+        cur_tag = Tag.create(:name => tag, :topics_count => 0)
       else
         cur_tag = Tag.find_by(:name => tag)
       end

@@ -9,10 +9,15 @@
 
 <div class="form container">
   <%= form_for [@topic, @comment] do |f| %>
-    <div>
-    <%= f.label :content%>
-    <%= f.text_field :content%>
-    </div>
+  <table>
+    <tr>
+      <td>
+        <%= f.label :content%>
+      </td>
+      <td>
+        <%= f.text_area :content%>
+      </td>
+    </tr>
 
     <div>
       <tr>
@@ -20,12 +25,16 @@
         <td><%= f.select :status, [['Draft'], ['Published'], ['Abandoned']] %> </td>
       </tr>
     </div>
-
+    <tr>
+      <td class="new_comment_actions">
     Posting as <%= current_user.firstname %>
 
     <%= f.hidden_field :user_id, :value => current_user.id %>
     <%= f.submit %>
     <%= link_to 'Back to index', topic_path(@topic) %>
+      </td>
+    <tr>
+  </table>
 
   <% end %>
 </div>

@@ -7,19 +7,27 @@ class TopicsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :destroy]
 
   def index
-    #@topics = Topic.page(params[:page]).per(10)
+    # @topics = Topic.page(params[:page]).per(10)
+
+    if params[:tag] != nil && params[:tag] != ""
+      @tag = Tag.find(params[:tag])
+      @topic_list = @tag.topics.where(status: 2)
+    else
+      @topic_list = Topic.where(status: 2)
+    end
 
     # Search Controller
     if params[:search]
-
       # Get topic ids array from search
-      @topics_id = Topic.searchtitle(params[:search])
-      @topics_id += Topic.searchbody(params[:search])
+      @topics_id = @topic_list.searchtitle(params[:search]).pluck(:id)
+      @topics_id += @topic_list.searchbody(params[:search]).pluck(:id)
       @topics_id.uniq!
       @topics = Topic.where('id IN (?)', @topics_id)
       if params[:sort]
         sortstring = params[:sort] + params[:sorttype]
         @topics = @topics.order(sortstring)
+      else
+        @topics = @topics.order('created_at DESC')
       end
       @topics = @topics.page(params[:page]).per(10)
 
@@ -27,12 +35,29 @@ class TopicsController < ApplicationController
       # Sort Controller
       if params[:sort]
         sortstring = params[:sort] + params[:sorttype]
-        @topics = Topic.published_topics
+
+        @topics = @topic_list
         @topics = @topics.order(sortstring).page(params[:page]).per(10)
       else
-        @topics = Topic.published_topics.order('created_at DESC').page(params[:page]).per(10)
+        @topics = @topic_list.order('created_at DESC').page(params[:page]).per(10)
       end
     end
+
+    # Tags
+    @taglist = {}
+    @topics.each do |topic|
+      topic.tags.each do |tagname|
+        if !@taglist.keys.include?(tagname.id)
+          @taglist[tagname.id] = 1
+        else
+          @taglist[tagname.id] += 1
+        end
+      end
+    end
+    @taglist = @taglist.sort_by { |k, v| v }.reverse.first(10)
+
+
+
   end
 
   def show
@@ -72,6 +97,14 @@ class TopicsController < ApplicationController
   end
 
   def about
+    @total_pageviews = 0
+    @total_votes = 0
+    Topic.all.each do |topic|
+      @total_pageviews += topic.view_counts
+      @total_votes += topic.votes
+    end
+    
+
   end
   
 

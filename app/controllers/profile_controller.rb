@@ -8,4 +8,7 @@ class ProfileController < ApplicationController
     @comments = Comment.where(user_id: current_user.id)
   end
 
+  def userlist
+    @userlist = User.all
+  end
 end
