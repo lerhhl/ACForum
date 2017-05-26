@@ -36,11 +36,11 @@ class Topic < ApplicationRecord
 
   # Search
   def self.searchtitle(search)
-    published_topics.where("title LIKE ?", "%#{search}%").order("created_at DESC").pluck(:id)
+    published_topics.where("title LIKE ?", "%#{search}%").pluck(:id)
   end
   
   def self.searchbody(search)
-    published_topics.where("body LIKE ?", "%#{search}%").order("created_at DESC").pluck(:id)
+    published_topics.where("body LIKE ?", "%#{search}%").pluck(:id)
   end
 
 end
