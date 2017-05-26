@@ -19,8 +19,8 @@ class TopicsController < ApplicationController
     # Search Controller
     if params[:search]
       # Get topic ids array from search
-      @topics_id = @topic_list.searchtitle(params[:search]).pluck(:id)
-      @topics_id += @topic_list.searchbody(params[:search]).pluck(:id)
+      @topics_id = @topic_list.searchtitle(params[:search])
+      @topics_id += @topic_list.searchbody(params[:search])
       @topics_id.uniq!
       @topics = Topic.where('id IN (?)', @topics_id)
       if params[:sort]
