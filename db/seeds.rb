@@ -47,7 +47,7 @@ end
 
 # Topic
 # Create 100 topics
-60.times do
+80.times do
   title = Faker::HarryPotter.quote
   body = Faker::HarryPotter.quote + Faker::HarryPotter.quote +
          Faker::HarryPotter.quote + Faker::HarryPotter.quote +
@@ -66,7 +66,7 @@ end
 # Comment
 # Create 200 Comments
 
-300.times do 
+400.times do 
   content = Faker::HarryPotter.quote + Faker::HarryPotter.quote
   offset = rand(Topic.count)
   topic_id = Topic.offset(offset).limit(1).first.id
@@ -95,7 +95,7 @@ end
 
 #Create tags
 
-30.times do
+50.times do
   tagname = Faker::Color.color_name
   if !Tag.exists?(:name => tagname)
     Tag.create(:name => tagname)
@@ -104,7 +104,7 @@ end
 
 #Assign tags to topics
 
-200.times do
+300.times do
 
   offset = rand(Topic.count)
   chosen_topic = Topic.offset(offset).limit(1).first
